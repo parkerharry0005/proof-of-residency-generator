@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Proof of Residency Letter Generator | Printable PDF Template</title>
+  <meta name="description" content="Generate an official Proof of Residency Letter (Affidavit of Residence) in seconds. Free printable PDF for DMV, public schools, banks, and state benefits.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- jsPDF Library CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-blue-700 text-white py-6 text-center shadow-md">
+    <h1 class="text-3xl font-bold">Proof of Residency Letter Generator</h1>
+    <p class="mt-2 text-blue-100 text-sm sm:text-base">Create an Official Affidavit of Residence Instantly (100% Free & Browser-Based)</p>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="max-w-6xl mx-auto p-4 grid grid-cols-1 lg:grid-cols-2 gap-6 my-6 flex-grow">
+    
+    <!-- Left Form Area -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+      <h2 class="text-xl font-semibold mb-4 text-blue-700 border-b pb-2">Fill Residence Details</h2>
+      <form id="residencyForm" class="space-y-4">
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700">US State / Jurisdiction</label>
+          <select id="state" class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500">
+            <option value="California">California</option>
+            <option value="Texas">Texas</option>
+            <option value="Florida">Florida</option>
+            <option value="New York">New York</option>
+            <option value="General (All US States)">General (All US States)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Affiant Full Name (Landlord / Host / Owner)</label>
+          <input type="text" id="affiantName" placeholder="e.g. John Doe" class="w-full border border-gray-300 p-2 rounded mt-1" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Resident Full Name (Tenant / Guest / Applicant)</label>
+          <input type="text" id="residentName" placeholder="e.g. Jane Smith" class="w-full border border-gray-300 p-2 rounded mt-1" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Full Residential Address (Street, City, State, ZIP)</label>
+          <input type="text" id="address" placeholder="123 Main St, Apt 4B, Austin, TX 78701" class="w-full border border-gray-300 p-2 rounded mt-1" required>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Move-in Date</label>
+            <input type="date" id="moveInDate" class="w-full border border-gray-300 p-2 rounded mt-1" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Purpose of Affidavit</label>
+            <select id="purpose" class="w-full border border-gray-300 p-2 rounded mt-1">
+              <option value="DMV / Driver's License Registration">DMV / Driver's License</option>
+              <option value="Public School District Admission">School District Admission</option>
+              <option value="Bank Account & Legal Proof">Bank Account Opening</option>
+              <option value="State / Federal Benefits Claim">Government Benefits</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" onclick="generatePDF()" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition shadow mt-2">
+          📄 Download Printable Affidavit PDF
+        </button>
+      </form>
+    </div>
+
+    <!-- Right Preview Window -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col">
+      <h2 class="text-xl font-semibold mb-4 text-blue-700 border-b pb-2">Document Live Preview</h2>
+      <div id="documentPreview" class="text-xs sm:text-sm font-mono whitespace-pre-wrap bg-gray-50 p-4 border rounded leading-relaxed text-gray-700 flex-grow overflow-y-auto max-h-[500px]">
+        Fill the fields on the left to watch your affidavit draft in real-time...
+      </div>
+    </div>
+  </main>
+
+  <!-- SEO Content Section (Crucial for Organic Traffic & AdSense) -->
+  <article class="max-w-5xl mx-auto p-6 bg-white rounded-lg shadow-sm my-6 border border-gray-200">
+    <h2 class="text-2xl font-bold mb-3 text-gray-800">What is a Proof of Residency Letter?</h2>
+    <p class="mb-4 text-gray-600 leading-relaxed">A <strong>Proof of Residency Letter</strong>, commonly referred to as an <em>Affidavit of Residence</em>, is a sworn legal statement used to verify that an individual currently resides at a specific residential address. This document is frequently requested when an applicant does not have utility bills, lease contracts, or mortgage papers under their own name.</p>
+
+    <h2 class="text-xl font-bold my-3 text-gray-800">When Do You Need an Affidavit of Residence?</h2>
+    <ul class="list-disc pl-5 space-y-2 text-gray-600 mb-6">
+      <li><strong>DMV REAL ID & Driver's License:</strong> State DMVs require multiple proofs of physical residence address.</li>
+      <li><strong>School District Enrollment:</strong> Parents must prove residency within the school boundaries to enroll students.</li>
+      <li><strong>Financial Institutions:</strong> Opening a checking or savings account requires physical address verification.</li>
+      <li><strong>Government Benefits & SNAP:</strong> Proving state residency for welfare or medical assistance.</li>
+    </ul>
+
+    <h2 class="text-xl font-bold my-3 text-gray-800">Does a Proof of Residency Letter Need Notarization?</h2>
+    <p class="text-gray-600 leading-relaxed">In most US states, government institutions (like the Department of Motor Vehicles or county clerks) require an official Affidavit of Residence to be notarized. Our free generator automatically appends a standard <strong>Notary Public Jurat / Acknowledgment Block</strong> at the bottom of the generated PDF file.</p>
+  </article>
+
+  <!-- Footer with Legal Modal Links -->
+  <footer class="bg-gray-800 text-gray-300 py-6 text-center text-sm mt-auto">
+    <p>&copy; 2026 ResidencyProof Generator. All rights reserved.</p>
+    <div class="mt-2 space-x-4">
+      <button onclick="alert('PRIVACY POLICY:\nThis tool operates 100% locally inside your web browser. No address, name, or personal data is collected or transmitted to any server.')" class="underline hover:text-white">Privacy Policy</button>
+      <button onclick="alert('TERMS OF SERVICE:\nThis tool provides standard legal templates for informational purposes. It does not constitute formal legal advice.')" class="underline hover:text-white">Terms of Service</button>
+      <button onclick="alert('CONTACT US:\nFor support or feedback, email us at: contact@residencyproof-tool.com')" class="underline hover:text-white">Contact Us</button>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
