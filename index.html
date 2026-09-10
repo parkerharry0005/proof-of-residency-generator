@@ -15,7 +15,7 @@
   <!-- Inter Font, Playfair Display & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -107,16 +107,32 @@
       background: #ffffff;
       border: 1px solid #cbd5e1;
       border-radius: 8px;
-      padding: 2rem;
+      padding: 2.5rem 2rem;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.02), 0 4px 6px -1px rgba(0,0,0,0.05);
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: #1e293b;
       min-height: 480px;
       max-height: 520px;
       overflow-y: auto;
-      white-space: pre-wrap;
       line-height: 1.7;
+    }
+
+    /* Document Heading Styling */
+    .doc-heading {
+      text-align: center;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.8rem;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .doc-body {
+      white-space: pre-wrap;
     }
 
     /* Info Section Below Generator */
@@ -194,7 +210,10 @@
       <!-- Live Preview Card -->
       <div class="card">
         <h2 class="card-title"><i data-lucide="file-text" style="color: var(--primary);"></i> Document Live Preview</h2>
-        <div id="documentPreview" class="document-preview">Loading preview...</div>
+        <div class="document-preview">
+          <div class="doc-heading">AFFIDAVIT OF RESIDENCE</div>
+          <div id="documentPreviewBody" class="doc-body">Loading preview...</div>
+        </div>
       </div>
     </div>
 
@@ -218,7 +237,6 @@
     </section>
   </main>
 
-  <!-- Inline Application Logic (Guarantees Instant Live Execution) -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if (window.lucide) {
@@ -231,7 +249,7 @@
       const address = document.getElementById('address');
       const moveDate = document.getElementById('moveDate');
       const purpose = document.getElementById('purpose');
-      const preview = document.getElementById('documentPreview');
+      const previewBody = document.getElementById('documentPreviewBody');
       const downloadBtn = document.getElementById('downloadBtn');
 
       function formatDate(dateStr) {
@@ -248,7 +266,7 @@
         return new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
       }
 
-      function generateDocumentText() {
+      function generateBodyText() {
         const state = stateSelect ? stateSelect.value : "California";
         const affiant = (affiantName && affiantName.value.trim()) ? affiantName.value.trim() : "[Landlord / Host Name]";
         const resident = (residentName && residentName.value.trim()) ? residentName.value.trim() : "[Resident Name]";
@@ -257,8 +275,7 @@
         const purp = purpose ? purpose.value : "DMV / Driver's License";
         const today = getTodayFormatted();
 
-        return `AFFIDAVIT OF RESIDENCE / PROOF OF RESIDENCY LETTER\n` +
-               `State of: ${state}\n\n` +
+        return `State of: ${state}\n` +
                `Date: ${today}\n\n` +
                `To Whom It May Concern,\n\n` +
                `I, ${affiant}, hereby declare under penalty of perjury that I am the legal owner or primary tenant of the residence situated at:\n\n` +
@@ -280,8 +297,8 @@
       }
 
       function updatePreview() {
-        if (preview) {
-          preview.innerText = generateDocumentText();
+        if (previewBody) {
+          previewBody.innerText = generateBodyText();
         }
       }
 
@@ -300,19 +317,29 @@
           }
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'letter' });
-          const content = generateDocumentText();
-          
+
+          // Render Main Centered Title
+          doc.setFont("times", "bold");
+          doc.setFontSize(16);
+          doc.text("AFFIDAVIT OF RESIDENCE", 300, 50, { align: "center" });
+
+          // Horizontal Line under title
+          doc.setLineWidth(1);
+          doc.line(180, 58, 420, 58);
+
+          // Render Body Content
           doc.setFont("times", "normal");
           doc.setFontSize(11);
-          const splitText = doc.splitTextToSize(content, 500);
-          doc.text(splitText, 56, 60);
+          const bodyContent = generateBodyText();
+          const splitText = doc.splitTextToSize(bodyContent, 500);
+          doc.text(splitText, 56, 90);
 
           const safeName = residentName.value.trim().replace(/\s+/g, '_') || 'Affidavit';
           doc.save(`Proof_of_Residency_${safeName}.pdf`);
         });
       }
 
-      // Render instantly on startup
+      // Initial Render
       updatePreview();
     });
   </script>
