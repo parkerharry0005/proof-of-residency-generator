@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proof of Residency Letter Generator | Official Affidavit Maker</title>
-  <meta name="description" content="Generate a free, printable Proof of Residency Letter and Affidavit instantly in your browser. Download official PDFs for DMV, school enrollment, and legal use.">
+  <title>Free Proof of Residency Letter & Proof of Address Template Generator</title>
+  <meta name="description" content="Generate a free proof of residency letter, proof of address template, and official statement of residency form instantly. Download official PDFs for DMV, school enrollment, and bank verification.">
   
   <!-- Search Console Verification -->
   <meta name="google-site-verification" content="tRTb7xRXmou4lumf7A2em1XthoJiQpkFQVKW0HLtJbI" />
@@ -29,6 +29,7 @@
       --text-muted: #64748b;
       --border: #e2e8f0;
       --radius: 12px;
+      --error: #ef4444;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
@@ -57,7 +58,7 @@
       margin-bottom: 1rem;
     }
     header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-    header p { color: #94a3b8; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+    header p { color: #94a3b8; font-size: 1rem; max-width: 650px; margin: 0 auto; }
 
     /* Main Container */
     .container { max-width: 1200px; margin: -2rem auto 3rem; padding: 0 1.5rem; }
@@ -81,6 +82,7 @@
     /* Form Fields */
     .form-group { margin-bottom: 1.2rem; }
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #334155; margin-bottom: 6px; }
+    .form-group label .req { color: var(--error); }
     .form-control {
       width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border);
       border-radius: var(--radius); font-size: 0.95rem; color: var(--text-main);
@@ -89,6 +91,10 @@
     .form-control:focus {
       outline: none; border-color: var(--primary); background-color: #fff;
       box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+    .form-control.input-error {
+      border-color: var(--error) !important;
+      background-color: #fef2f2 !important;
     }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
@@ -148,50 +154,56 @@
 <body>
 
   <header>
-    <div class="badge"><i data-lucide="shield-check" size="14"></i> Official Legal Tool</div>
+    <div class="badge"><i data-lucide="shield-check" size="14"></i> Free Legal Document Tool</div>
     <h1>Proof of Residency Generator</h1>
-    <p>Create, customize, and download an official Affidavit of Residence in seconds.</p>
+    <p>Generate a free proof of residency letter and printable proof of address template instantly in your browser.</p>
   </header>
 
   <main class="container">
     <div class="grid">
       <!-- Input Form Card -->
       <div class="card">
-        <h2 class="card-title"><i data-lucide="file-edit" style="color: var(--primary);"></i> Fill Residence Details</h2>
+        <h2 class="card-title"><i data-lucide="file-edit" style="color: var(--primary);"></i> Fill Statement of Residency Form</h2>
         
-        <div class="form-group">
-          <label for="stateSelect">US State / Jurisdiction</label>
-          <select id="stateSelect" class="form-control">
-            <option value="California">California</option>
-            <option value="Texas">Texas</option>
-            <option value="Florida">Florida</option>
-            <option value="New York">New York</option>
-            <option value="General">Other / General US State</option>
-          </select>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="stateSelect">US State / Jurisdiction <span class="req">*</span></label>
+            <select id="stateSelect" class="form-control">
+              <option value="California">California</option>
+              <option value="Texas">Texas</option>
+              <option value="Florida">Florida</option>
+              <option value="New York">New York</option>
+              <option value="General">Other / General US State</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="countyName">County (Optional)</label>
+            <input type="text" id="countyName" class="form-control" placeholder="e.g. Travis County">
+          </div>
         </div>
 
         <div class="form-group">
-          <label for="affiantName">Affiant Full Name (Landlord / Host / Owner)</label>
+          <label for="affiantName">Affiant Full Name (Landlord / Owner / Host) <span class="req">*</span></label>
           <input type="text" id="affiantName" class="form-control" placeholder="e.g. John Doe">
         </div>
 
         <div class="form-group">
-          <label for="residentName">Resident Full Name (Tenant / Applicant)</label>
+          <label for="residentName">Resident Full Name (Tenant / Applicant) <span class="req">*</span></label>
           <input type="text" id="residentName" class="form-control" placeholder="e.g. Jane Smith">
         </div>
 
         <div class="form-group">
-          <label for="address">Full Residential Address</label>
+          <label for="address">Full Residential Address <span class="req">*</span></label>
           <input type="text" id="address" class="form-control" placeholder="123 Main St, Apt 4B, Austin, TX 78701">
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="moveDate">Move-in Date</label>
+            <label for="moveDate">Move-in Date <span class="req">*</span></label>
             <input type="date" id="moveDate" class="form-control">
           </div>
           <div class="form-group">
-            <label for="purpose">Purpose of Affidavit</label>
+            <label for="purpose">Purpose of Affidavit <span class="req">*</span></label>
             <select id="purpose" class="form-control">
               <option value="DMV / Driver's License">DMV / Driver's License</option>
               <option value="School District Enrollment">School District Enrollment</option>
@@ -202,7 +214,7 @@
         </div>
 
         <button id="downloadBtn" class="btn-primary">
-          <i data-lucide="download"></i> Download Printable Affidavit PDF
+          <i data-lucide="download"></i> Download Free Proof of Residence PDF
         </button>
       </div>
 
@@ -219,19 +231,20 @@
     <!-- SEO Content Section -->
     <section class="info-section">
       <div class="info-card">
-        <h2><i data-lucide="help-circle" style="color: var(--primary);"></i> What is a Proof of Residency Letter?</h2>
-        <p>A <strong>Proof of Residency Letter</strong>, commonly referred to as an <em>Affidavit of Residence</em>, is a sworn legal statement used to verify that an individual currently resides at a specific residential address. This document is frequently requested when an applicant does not have utility bills, lease contracts, or mortgage papers under their own name.</p>
+        <h2><i data-lucide="help-circle" style="color: var(--primary);"></i> Understanding the Letter of Proof of Residence</h2>
+        <p>A formal <strong>letter of proof of residence</strong> is an official document used to confirm where a person physically lives. If you need a reliable <strong>proof of residency template</strong> or a customizable <strong>proof of address template</strong>, our online tool allows you to create a legally binding affidavit within minutes without paying high legal fees.</p>
 
-        <h3>When Do You Need an Affidavit of Residence?</h3>
+        <h3>Key Elements of a Free Proof of Residency Letter</h3>
+        <p>Using a standardized <strong>statement of residency form</strong> ensures that state authorities, schools, and financial institutions accept your proof. Every complete <strong>free proof of residency letter</strong> generated on this site includes:</p>
         <ul>
-          <li><i data-lucide="check-circle-2" size="18"></i> <strong>DMV REAL ID & Driver's License:</strong> State DMVs require multiple proofs of physical residence address.</li>
-          <li><i data-lucide="check-circle-2" size="18"></i> <strong>School District Enrollment:</strong> Parents must prove residency within the school boundaries to enroll students.</li>
-          <li><i data-lucide="check-circle-2" size="18"></i> <strong>Financial Institutions:</strong> Opening a checking or savings account requires physical address verification.</li>
-          <li><i data-lucide="check-circle-2" size="18"></i> <strong>Government Benefits & SNAP:</strong> Proving state residency for welfare or medical assistance.</li>
+          <li><i data-lucide="check-circle-2" size="18"></i> <strong>Affiant & Resident Verification:</strong> Full names of both the landlord/homeowner and the current resident.</li>
+          <li><i data-lucide="check-circle-2" size="18"></i> <strong>Physical Address Details:</strong> Complete street address, apartment number, city, state, and ZIP code.</li>
+          <li><i data-lucide="check-circle-2" size="18"></i> <strong>Occupancy Period:</strong> The exact date when the tenant or resident officially moved into the residence.</li>
+          <li><i data-lucide="check-circle-2" size="18"></i> <strong>Notary Acknowledgment Section:</strong> Built-in jurat section required for DMV, school districts, and legal proceedings.</li>
         </ul>
 
-        <h3>Does a Proof of Residency Letter Need Notarization?</h3>
-        <p>In most US states, government institutions (like the Department of Motor Vehicles or county clerks) require an official Affidavit of Residence to be notarized. Our free generator automatically appends a standard <strong>Notary Public Jurat / Acknowledgment Block</strong> at the bottom of the generated PDF file.</p>
+        <h3>How to Fill Out the Statement of Residency Form</h3>
+        <p>Simply enter the landlord or homeowner details, the resident's full legal name, the primary residential street address, and the move-in date into our <strong>proof of address template</strong> generator above. Once completed, click the download button to save your formatted <strong>proof of residency template</strong> as an official PDF file ready for print and notarization.</p>
       </div>
     </section>
   </main>
@@ -243,6 +256,7 @@
       }
 
       const stateSelect = document.getElementById('stateSelect');
+      const countyName = document.getElementById('countyName');
       const affiantName = document.getElementById('affiantName');
       const residentName = document.getElementById('residentName');
       const address = document.getElementById('address');
@@ -267,6 +281,7 @@
 
       function generateBodyText() {
         const state = stateSelect ? stateSelect.value : "California";
+        const county = (countyName && countyName.value.trim()) ? countyName.value.trim() : "___________________";
         const affiant = (affiantName && affiantName.value.trim()) ? affiantName.value.trim() : "[Landlord / Host Name]";
         const resident = (residentName && residentName.value.trim()) ? residentName.value.trim() : "[Resident Name]";
         const addr = (address && address.value.trim()) ? address.value.trim() : "[Full Address, City, State, ZIP]";
@@ -288,7 +303,7 @@
                `Printed Name of Affiant\n\n\n` +
                `---------------------------------------------------\n` +
                `NOTARY ACKNOWLEDGMENT (IF REQUIRED)\n\n` +
-               `State of ${state}, County of ___________________\n\n` +
+               `State of ${state}, County of ${county}\n\n` +
                `Subscribed and sworn to before me on this _____ day of ____________, 20____,\n` +
                `by ___________________________________.\n\n` +
                `___________________________________\n` +
@@ -301,15 +316,39 @@
         }
       }
 
-      [stateSelect, affiantName, residentName, address, moveDate, purpose].forEach(el => {
+      function validateInputs() {
+        let isValid = true;
+        const requiredInputs = [affiantName, residentName, address, moveDate];
+
+        requiredInputs.forEach(input => {
+          if (!input.value.trim()) {
+            input.classList.add('input-error');
+            isValid = false;
+          } else {
+            input.classList.remove('input-error');
+          }
+        });
+
+        return isValid;
+      }
+
+      [stateSelect, countyName, affiantName, residentName, address, moveDate, purpose].forEach(el => {
         if (el) {
-          el.addEventListener('input', updatePreview);
+          el.addEventListener('input', function() {
+            el.classList.remove('input-error');
+            updatePreview();
+          });
           el.addEventListener('change', updatePreview);
         }
       });
 
       if (downloadBtn) {
         downloadBtn.addEventListener('click', function () {
+          if (!validateInputs()) {
+            alert("Please fill in all required fields marked with (*) before downloading PDF.");
+            return;
+          }
+
           if (!window.jspdf) {
             alert("PDF Generator is loading. Please try again in 2 seconds.");
             return;
@@ -317,16 +356,16 @@
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'letter' });
 
-          // Render Updated Main Centered Title
+          // Title
           doc.setFont("times", "bold");
           doc.setFontSize(16);
           doc.text("Proof of Residency Letter", 300, 50, { align: "center" });
 
-          // Horizontal Line under title
+          // Horizontal Line
           doc.setLineWidth(1);
           doc.line(180, 58, 420, 58);
 
-          // Render Body Content
+          // Body Text
           doc.setFont("times", "normal");
           doc.setFontSize(11);
           const bodyContent = generateBodyText();
