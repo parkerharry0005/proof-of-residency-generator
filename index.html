@@ -121,14 +121,13 @@
     /* Document Heading Styling */
     .doc-heading {
       text-align: center;
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: #0f172a;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
       margin-bottom: 1.8rem;
       border-bottom: 2px solid #0f172a;
       padding-bottom: 0.5rem;
-      text-transform: uppercase;
     }
 
     .doc-body {
@@ -211,7 +210,7 @@
       <div class="card">
         <h2 class="card-title"><i data-lucide="file-text" style="color: var(--primary);"></i> Document Live Preview</h2>
         <div class="document-preview">
-          <div class="doc-heading">AFFIDAVIT OF RESIDENCE</div>
+          <div class="doc-heading">Proof of Residency Letter</div>
           <div id="documentPreviewBody" class="doc-body">Loading preview...</div>
         </div>
       </div>
@@ -318,10 +317,10 @@
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'letter' });
 
-          // Render Main Centered Title
+          // Render Updated Main Centered Title
           doc.setFont("times", "bold");
           doc.setFontSize(16);
-          doc.text("AFFIDAVIT OF RESIDENCE", 300, 50, { align: "center" });
+          doc.text("Proof of Residency Letter", 300, 50, { align: "center" });
 
           // Horizontal Line under title
           doc.setLineWidth(1);
