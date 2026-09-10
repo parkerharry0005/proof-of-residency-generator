@@ -6,15 +6,18 @@
   <title>Proof of Residency Letter Generator | Official Affidavit Maker</title>
   <meta name="description" content="Generate a free, printable Proof of Residency Letter and Affidavit instantly in your browser. Download official PDFs for DMV, school enrollment, and legal use.">
   
-  <!-- Inter Font & Lucide Icons -->
+  <!-- Search Console Verification -->
+  <meta name="google-site-verification" content="tRTb7xRXmou4lumf7A2em1XthoJiQpkFQVKW0HLtJbI" />
+  
+  <!-- Favicon Link -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Inter Font, Playfair Display & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <meta name="google-site-verification" content="tRTb7xRXmou4lumf7A2em1XthoJiQpkFQVKW0HLtJbI" />
-<!-- Favicon Link -->
-<link rel="icon" type="image/png" href="favicon.png">
 
   <style>
     :root {
@@ -37,7 +40,6 @@
       color: #fff;
       padding: 3rem 1rem 4rem;
       text-align: center;
-      position: relative;
     }
     header .badge {
       background: rgba(37, 99, 235, 0.2);
@@ -54,8 +56,8 @@
       gap: 6px;
       margin-bottom: 1rem;
     }
-    header h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-    header p { color: #94a3b8; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+    header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    header p { color: #94a3b8; font-size: 1rem; max-width: 600px; margin: 0 auto; }
 
     /* Main Container */
     .container { max-width: 1200px; margin: -2rem auto 3rem; padding: 0 1.5rem; }
@@ -107,10 +109,11 @@
       border-radius: 8px;
       padding: 2rem;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.02), 0 4px 6px -1px rgba(0,0,0,0.05);
-      font-family: 'Playfair Display', serif;
+      font-family: 'Playfair Display', Georgia, serif;
       font-size: 0.88rem;
       color: #1e293b;
-      height: 480px;
+      min-height: 480px;
+      max-height: 520px;
       overflow-y: auto;
       white-space: pre-wrap;
       line-height: 1.7;
@@ -191,7 +194,7 @@
       <!-- Live Preview Card -->
       <div class="card">
         <h2 class="card-title"><i data-lucide="file-text" style="color: var(--primary);"></i> Document Live Preview</h2>
-        <div id="documentPreview" class="document-preview">Generating preview...</div>
+        <div id="documentPreview" class="document-preview">Loading preview...</div>
       </div>
     </div>
 
@@ -215,10 +218,103 @@
     </section>
   </main>
 
-  <script src="app.js"></script>
+  <!-- Inline Application Logic (Guarantees Instant Live Execution) -->
   <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
+    document.addEventListener("DOMContentLoaded", function () {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      const stateSelect = document.getElementById('stateSelect');
+      const affiantName = document.getElementById('affiantName');
+      const residentName = document.getElementById('residentName');
+      const address = document.getElementById('address');
+      const moveDate = document.getElementById('moveDate');
+      const purpose = document.getElementById('purpose');
+      const preview = document.getElementById('documentPreview');
+      const downloadBtn = document.getElementById('downloadBtn');
+
+      function formatDate(dateStr) {
+        if (!dateStr) return "[Move-In Date]";
+        const parts = dateStr.split('-');
+        if (parts.length === 3) {
+          const date = new Date(parts[0], parts[1] - 1, parts[2]);
+          return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        }
+        return dateStr;
+      }
+
+      function getTodayFormatted() {
+        return new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      }
+
+      function generateDocumentText() {
+        const state = stateSelect ? stateSelect.value : "California";
+        const affiant = (affiantName && affiantName.value.trim()) ? affiantName.value.trim() : "[Landlord / Host Name]";
+        const resident = (residentName && residentName.value.trim()) ? residentName.value.trim() : "[Resident Name]";
+        const addr = (address && address.value.trim()) ? address.value.trim() : "[Full Address, City, State, ZIP]";
+        const mDate = moveDate ? formatDate(moveDate.value) : "[Move-In Date]";
+        const purp = purpose ? purpose.value : "DMV / Driver's License";
+        const today = getTodayFormatted();
+
+        return `AFFIDAVIT OF RESIDENCE / PROOF OF RESIDENCY LETTER\n` +
+               `State of: ${state}\n\n` +
+               `Date: ${today}\n\n` +
+               `To Whom It May Concern,\n\n` +
+               `I, ${affiant}, hereby declare under penalty of perjury that I am the legal owner or primary tenant of the residence situated at:\n\n` +
+               `${addr}\n\n` +
+               `I hereby confirm and certify that ${resident} resides with me at this address as a full-time resident, having established residency on ${mDate}.\n\n` +
+               `This affidavit is being provided for the purpose of: ${purp}.\n\n` +
+               `I swear or affirm under penalty of perjury that the statements above are true and correct to the best of my knowledge.\n\n` +
+               `___________________________________\n` +
+               `Signature of Affiant (Owner / Host)\n\n` +
+               `___________________________________\n` +
+               `Printed Name of Affiant\n\n\n` +
+               `---------------------------------------------------\n` +
+               `NOTARY ACKNOWLEDGMENT (IF REQUIRED)\n\n` +
+               `State of ${state}, County of ___________________\n\n` +
+               `Subscribed and sworn to before me on this _____ day of ____________, 20____,\n` +
+               `by ___________________________________.\n\n` +
+               `___________________________________\n` +
+               `Notary Public Signature & Seal`;
+      }
+
+      function updatePreview() {
+        if (preview) {
+          preview.innerText = generateDocumentText();
+        }
+      }
+
+      [stateSelect, affiantName, residentName, address, moveDate, purpose].forEach(el => {
+        if (el) {
+          el.addEventListener('input', updatePreview);
+          el.addEventListener('change', updatePreview);
+        }
+      });
+
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', function () {
+          if (!window.jspdf) {
+            alert("PDF Generator is loading. Please try again in 2 seconds.");
+            return;
+          }
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'letter' });
+          const content = generateDocumentText();
+          
+          doc.setFont("times", "normal");
+          doc.setFontSize(11);
+          const splitText = doc.splitTextToSize(content, 500);
+          doc.text(splitText, 56, 60);
+
+          const safeName = residentName.value.trim().replace(/\s+/g, '_') || 'Affidavit';
+          doc.save(`Proof_of_Residency_${safeName}.pdf`);
+        });
+      }
+
+      // Render instantly on startup
+      updatePreview();
+    });
   </script>
 </body>
 </html>
